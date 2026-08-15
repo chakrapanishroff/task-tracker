@@ -1,0 +1,328 @@
+Supervised Learning --> model learns from labeled data
+to predict outcomes for new data
+
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit([[1],[2],[3]], [2,4,6])
+prediction = model.predict([[4]])
+print(prediction)
+
+Explanation:
+
+The model learns from labeled examples: 1→2, 2→4, 3→6
+It predicts the output for a new input: 4 → 8 (approximately)
+
+
+
+Example: Supervised Learning using Decision Tree Classifier
+
+Supervised Learning → model learns from labeled data to predict outcomes for new data
+
+Problem: Predict whether a person will buy a product based on their age.
+
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier()
+model.fit([[20],[30],[40]], ["No","Yes","Yes"])
+prediction = model.predict([[35]])
+print(prediction)
+
+output : ['Yes']
+
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier()
+model.fit([[20],[30],[40]], ["No","Yes","Yes"])
+prediction = model.predict([[15]])
+print(prediction)
+
+output : ['No']
+
+The model learns from labeled examples:
+
+Age 20 → No purchase
+Age 30 → Yes purchase
+Age 40 → Yes purchase
+
+----
+Example: Supervised Learning using K-Nearest Neighbors (KNN) Algorithm
+
+Supervised Learning → model learns from labeled data to predict outcomes for new data
+
+Problem: Predict whether a student will Pass or Fail based on study hours.
+
+from sklearn.neighbors import KNeighborsClassifier
+model = KNeighborsClassifier(n_neighbors=3)
+model.fit([[2],[4],[6],[8]], ["Fail","Fail","Pass","Pass"])
+prediction = model.predict([[5]])
+print(prediction)
+
+output: ['Fail']
+
+The model learned:
+
+Study Hours → Result
+
+2 hours → Fail
+4 hours → Fail
+6 hours → Pass
+8 hours → Pass
+
+Now we ask:
+
+prediction = model.predict([[5]])
+
+The model checks the 3 nearest neighbors (n_neighbors=3):
+
+New student = 5 hours
+
+Nearest examples:
+
+4 hours → Fail  (distance = 1)
+6 hours → Pass  (distance = 1)
+2 hours → Fail  (distance = 3)
+
+Voting:
+
+Fail = 2 votes
+Pass = 1 vote
+
+So KNN predicts:
+
+5 hours → Fail
+
+To make the prediction "Pass", change the number of neighbors:
+
+from sklearn.neighbors import KNeighborsClassifier
+
+model = KNeighborsClassifier(n_neighbors=2)
+model.fit([[2],[4],[6],[8]], ["Fail","Fail","Pass","Pass"])
+
+prediction = model.predict([[5]])
+print(prediction)
+
+Output: ['Pass']
+
+Key Learning:
+
+KNN does not learn a fixed rule like:
+
+Above 5 hours = Pass
+
+Instead, it asks:
+
+"Which previous examples are closest to this new example?"
+
+and predicts based on their majority vote.
+
+This is why KNN is called a lazy learning algorithm — it stores the examples and makes decisions during prediction time.
+
+-----
+
+Example: Supervised Learning using Logistic Regression Algorithm
+
+Supervised Learning → model learns from labeled data to predict outcomes for new data
+
+Problem: Predict whether an email is Spam or Not Spam based on the number of suspicious words.
+
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit([[1],[2],[8],[10]], ["Not Spam","Not Spam","Spam","Spam"])
+prediction = model.predict([[7]])
+print(prediction)
+
+output : ['Spam']
+
+Explanation:
+
+The model learns from labeled examples:
+
+Suspicious Words → Email Type
+
+1 word  → Not Spam
+2 words → Not Spam
+8 words → Spam
+10 words → Spam
+
+For a new email:
+
+7 suspicious words → Model predicts "Spam"
+
+----
+
+Example: Supervised Learning using Random Forest Classifier Algorithm
+
+Supervised Learning → model learns from labeled data to predict outcomes for new data
+
+Problem: Predict whether a person is eligible for a loan based on income.
+
+one more algorithm
+
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier()
+model.fit([[20000],[40000],[60000],[80000]], ["No","No","Yes","Yes"])
+prediction = model.predict([[70000]])
+print(prediction)
+
+['Yes']
+
+Explanation:
+
+The model learns from labeled examples:
+
+Income → Loan Approval
+
+₹20,000  → No
+₹40,000  → No
+₹60,000  → Yes
+₹80,000  → Yes
+
+For a new input:
+
+₹70,000 → Model predicts "Yes"
+
+---
+
+Example: Supervised Learning using Support Vector Machine (SVM) Algorithm
+
+Supervised Learning → model learns from labeled data to predict outcomes for new data
+
+Problem: Predict whether a student will Pass or Fail based on study hours.
+
+from sklearn.svm import SVC
+model = SVC()
+model.fit([[1],[2],[5],[6]], ["Fail","Fail","Pass","Pass"])
+prediction = model.predict([[4]])
+print(prediction)
+
+output : ['Pass']
+
+
+Explanation:
+
+The model learns from labeled examples:
+
+Study Hours → Result
+
+1 hour  → Fail
+2 hours → Fail
+5 hours → Pass
+6 hours → Pass
+
+For a new input:
+
+4 hours → Model predicts "Fail"
+
+Easy way to remember SVM:
+
+Imagine students are placed on a graph:
+
+Fail                 Pass
+
+1   2        |       5   6
+             |
+        Best boundary
+
+
+from sklearn.svm import SVC
+model = SVC()
+model.fit([[1],[2],[5],[6]], ["Fail","Fail","Pass","Pass"])
+prediction = model.predict([[3]])
+print(prediction)
+
+output : ['Fail']
+
+
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier()
+model.fit([[20000],[40000],[60000],[80000]], ["No","No","Yes","Yes"])
+prediction = model.predict([[35000]])
+print(prediction)
+
+['No']
+
+---
+
+Example: Supervised Learning using Naive Bayes Algorithm
+
+Supervised Learning → model learns from labeled data to predict outcomes for new data
+
+Problem: Predict whether a message is Spam or Not Spam based on words in the message.
+
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit([[1],[2],[8],[10]], ["Not Spam","Not Spam","Spam","Spam"])
+prediction = model.predict([[3]])
+print(prediction)
+
+['Not Spam']
+
+
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit([[1],[2],[8],[10]], ["Not Spam","Not Spam","Spam","Spam"])
+prediction = model.predict([[9]])
+print(prediction)
+
+['Spam']
+
+Explanation:
+
+The model learns from labeled examples:
+
+Suspicious Words → Email Type
+
+1 word  → Not Spam
+2 words → Not Spam
+8 words → Spam
+10 words → Spam
+
+For a new email:
+9 suspicious words → Model predicts "Spam"
+
+
+
+--------------------------------------------------------
+
+
+Unsupervised Learning --> model learns from unlabeled data to find hidden patterns, groups or relationships.
+
+from sklearn.cluster import KMeans
+model = KMeans(n_clusters=2)
+model.fit([[1,2],[2,3],[8,9],[9,10]])
+print(model.labels_)
+
+[1 1 0 0]
+
+Explanation:
+
+The model receives unlabeled data (only numbers, no answers).
+It automatically groups similar data points into 2 clusters.
+
+
+from sklearn.cluster import KMeans
+model = KMeans(n_clusters=2)
+model.fit([[10,5000],[2,800], [12,6000],[3,1000]])
+print(model.labels_)
+
+[0 1 0 1]
+
+from sklearn.cluster import KMeans
+model = KMeans(n_clusters=2)
+model.fit([[10,5000], [12,6000],[2,800],[3,1000]])
+print(model.labels_)
+
+[1 1 0 0]
+
+------------------------------------------------------------------------
+Reinforcement Learning → Learn by trial and error using rewards
+
+Reinforcement Learning an agent learns by interacting with an environment
+and improving through rewards and penalties.
+
+actions = ["move_forward", "fall_down"]
+reward = {"move_forward": 10, "fall_down": -5}
+action = "move_forward"
+print("Reward:", reward[action])
+
+output : Reward: 10
+
+

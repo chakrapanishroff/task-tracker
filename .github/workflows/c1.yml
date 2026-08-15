@@ -24,7 +24,7 @@ jobs:
           import math, time
           for i in range(2, 101):
               print(f'√{i} = {math.sqrt(i):.4f}')
-              time.sleep(1)
+             
           "
   notify:
     needs: build-and-test

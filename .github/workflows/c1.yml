@@ -1,24 +1,31 @@
 name: Simple CI Pipeline
-
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Print square roots from 2 to 10
+        run: |
+          python3 -c "
+          import math, time
+          for i in range(2, 11):
+              print(f'√{i} = {math.sqrt(i):.4f}')
+              time.sleep(1)
+          "
   notify:
     needs: build-and-test
     runs-on: ubuntu-latest
